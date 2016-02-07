@@ -25,8 +25,7 @@ wss.on('connection', function(ws) {
     ws.on('message', function(data, flags) {
         if (flags.binary) { return; }
         console.log('>>> ' + data);
-        if (data == 'test') { console.log('test'); ws.send('got test'); }
-        if (data == 'hello') { console.log('hello'); ws.send('WAZZZUP!'); }
+        ws.send('WAZZZUP!');
     });
     ws.on('close', function() {
       console.log('Connection closed!');
