@@ -1,14 +1,18 @@
-var net = require('net');
+var http = require('http');
 
+//Lets define a port we want to listen to
+const PORT=8080; 
 
-var server = net.createServer(function(socket) {
-    socket.on('data', function (data) {
-        console.log(data);
-        
-      });
-    
-    socket.pipe(socket);
+//We need a function which handles requests and send response
+function handleRequest(request, response){
+    response.end('It Works!! Path Hit: ' + request.url);
+}
+
+//Create a server
+var server = http.createServer(handleRequest);
+
+//Lets start our server
+server.listen(PORT, function(){
+    //Callback triggered when server is successfully listening. Hurray!
+    console.log("Server listening on: http://localhost:%s", PORT);
 });
-
-console.log("Listening...");
-server.listen(8080);
