@@ -1,10 +1,14 @@
-var express = require('express')
-var server = new express()
-server.use(express.static(__dirname+"/public"))
+var http = require('http');
+var express = require('express');
+var app = express();
 
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8080);
+app.set('ip', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1');
 
-server.get('/', function (request, response) {
-    response.send(200)
-})
+http.createServer(app).listen(app.get('port'), app.get('ip'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
 
-server.listen(process.env.OPENSHIFT_NODEJS_PORT || 80)
+app.get('/', function (req, res) {
+  res.send('Hello World!');
+});
