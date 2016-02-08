@@ -1,11 +1,10 @@
-var express = require('express');
-var app = express();
+var express = require('express')
+var server = new express()
+server.use(express.static(__dirname+"/public"))
 
-app.get('/', function(req, res) {
-    res.send("Hello");
-});
 
-var ipaddr  = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
-var port    = process.env.OPENSHIFT_NODEJS_PORT || 8000;
+server.get('/', function (request, response) {
+    response.send(200)
+})
 
-app.listen(80);
+server.listen(process.env.OPENSHIFT_NODEJS_PORT || 80)
