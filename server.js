@@ -10,5 +10,5 @@ http.createServer(app).listen(app.get('port'), app.get('ip'), function(){
 });
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.sendfile(__dirname + '/index.html');
 });
