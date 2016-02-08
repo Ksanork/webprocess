@@ -5,10 +5,9 @@ var WebSocketServer = require('ws').Server
 var http = require('http');
 var express = require('express');
 var app = express();
-var path = require("path");
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/folder_name/filename.html'));
+    res.sendFile(__dirname + '/index.html');
 });
 
 
