@@ -25,7 +25,7 @@ wss.on('connection', function(ws) {
     ws.on('message', function(data, flags) {
         if (flags.binary) { return; }
         console.log('>>> ' + data);
-        ws.send('WAZZZUP!');
+        ws.send('WAZZZUP! from fucking Openshift');
     });
     ws.on('close', function() {
       console.log('Connection closed!');
