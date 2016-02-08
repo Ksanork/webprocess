@@ -11,7 +11,7 @@ app.get('/', function(req, res){
   res.send("Hello");
 });
 
-
+/*
 var  wss = new WebSocketServer({server:server})
 console.log(wss);
 wss.on('connection', function(ws) {
@@ -46,4 +46,4 @@ wss.on('connect', function(ws) {
 });
 
 console.log('Listening at IP ' + ipaddr +' on port '+port);
-server.listen(port,ipaddr);
+server.listen(port,ipaddr);*/
