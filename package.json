@@ -29,10 +29,10 @@
   },
   "devDependencies": {},
   "bundleDependencies": [],
-  "scripts": { 
-    "start": "server2.js" 
-},
-
+ 
   "private": true,
+  "scripts": { 
+    "start": "node server2.js" 
+  },
   "main": "server.js"
 }
