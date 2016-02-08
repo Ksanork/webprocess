@@ -5,23 +5,10 @@ var WebSocketServer = require('ws').Server
 var http = require('http');
 var express = require('express');
 var app = express();
+var path = require("path");
 
-//browser
-var server = http.createServer(function(request, response) {
-    console.log((new Date()) + ' Received request for ' + request.url);
-    /*response.writeHead(200, {'Content-Type': 'text/plain'});
-      
-      response.write("Welcome to Node.js on OpenShift!\n\n");
-      response.end("Thanks for visiting us! \n");*/
-     
-     app.get('/', function(request, response){
-        response.sendfile('yourhtmlpagename.html');
-    });
-});
-
-server.listen( port, ipaddress, function() {
-    console.log((new Date()) + ' Server is listening on port 8080');
-    //response.sendfile(__dirname + '/index.html');
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname + '/folder_name/filename.html'));
 });
 
 
