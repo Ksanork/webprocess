@@ -1,16 +1,22 @@
 var WebSocketServer = require('ws').Server;
 var http = require('http');
-var app = require('express')();
 
 var ipaddr  = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 8000;
 
-var server = http.createServer();
 
-app.get('/', function(req, res){
-  res.send("Hello");
+/*var io = require('socket.io').listen(16000,ipaddr);
+io.sockets.on('connection', function (socket) {
+  console.log('io connection');
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
 });
-
+console.log('io listening on port 16000');
+*/  
+var server = http.createServer();
+//var wss = new WebSocketServer({server: server, path: '/connect'});
 
 var  wss = new WebSocketServer({server:server})
 console.log(wss);
