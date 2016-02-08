@@ -32,7 +32,7 @@
  
   "private": true,
   "scripts": { 
-    "start": "node server2.js" 
+    "start": "supervisor server2.js" 
   },
   "main": "server.js"
 }
