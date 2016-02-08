@@ -13,6 +13,12 @@ var server = http.createServer(function(request, response) {
       response.end("Thanks for visiting us! \n");
 });
 
+server.listen( port, ipaddress, function() {
+    console.log((new Date()) + ' Server is listening on port 8080');
+    //response.sendfile(__dirname + '/index.html');
+});
+
+
 //websocket app
 wss = new WebSocketServer({
     server: server,
