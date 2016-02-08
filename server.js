@@ -1,16 +1,10 @@
-var WebSocketServer = require('ws').Server
-var wss = new WebSocketServer({port: 8081});
-var http = require("http");
+var http = require('http');
+var fs = require('fs');
 
-var server = http.createServer(function(request,response){
-  response.writeHeader(200, {"Content-Type": "text/plain"});
-  response.write("Hello");
-  if (request.url == "/"){
-    for (var i = 0; i < wss.client.length; i++) {
-      var ws = wss.clients[i];
-      //sys.puts("sent msg");
-      ws.send("photo plox");
-    }
-  }
-  response.end();
+http.createServer(function(req, res){
+    fs.readFile('index.html',function (err, data){
+        res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
+        res.write(data);
+        res.end();
+    });
 }).listen(8000);
