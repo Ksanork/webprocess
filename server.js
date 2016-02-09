@@ -7,12 +7,7 @@ var express = require("express");
 var app     = express();
 
 var server = http.createServer(function(request, response) {
-    console.log((new Date()) + ' Received request for ' + request.url);
-    response.writeHead(200, {'Content-Type': 'text/html'});
-      response.write("Welcome to Node.js on OpenShift!\n\n");
-      response.end("Thanks for visiting us! \n");
-      
-     
+    
 });
 
 server.listen( port, ipaddress, function() {
