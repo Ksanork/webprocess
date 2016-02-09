@@ -9,7 +9,7 @@ var server = require('http').createServer()
 app.use(function (req, res) {
   res.send({ msg: "hello" });
 });
-
+/*
 wss.on('connection', function connection(ws) {
   var location = url.parse(ws.upgradeReq.url, true);
   // you might use location.query.access_token to authenticate or share sessions
@@ -22,5 +22,5 @@ wss.on('connection', function connection(ws) {
   ws.send('something');
 });
 
-server.on('request', app);
+server.on('request', app);*/
 server.listen(port, function () { console.log('Listening on ' + server.address().port) });
