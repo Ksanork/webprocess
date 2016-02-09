@@ -7,7 +7,7 @@ var fs = require("fs");
 
 //console.log("Starting web server at " + serverUrl + ":" + port);
 
-http.createServer( function(req, res) {
+var server = http.createServer( function(req, res) {
 
     var now = new Date();
 
@@ -43,7 +43,7 @@ http.createServer( function(req, res) {
         console.log("Invalid file extension detected: " + ext)
     }
 
-}).listen(port, ipaddress);
+});
 
 var wss = new WebSocketServer({
     server: server,
@@ -58,6 +58,7 @@ wss.on('connection', function(ws) {
 });
 
 console.log("Listening to " + ipaddress + ":" + port + "...");
+server.listen(port, ipaddress);
 
 function getFile(localPath, res, mimeType) {
     fs.readFile(localPath, function(err, contents) {
