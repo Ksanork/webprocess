@@ -45,7 +45,7 @@ http.createServer( function(req, res) {
 
 }).listen(port, serverUrl);
 
-function getFile(localPath, res, mimeType) {
+/*function getFile(localPath, res, mimeType) {
     fs.readFile(localPath, function(err, contents) {
         if(!err) {
             res.setHeader("Content-Length", contents.length);
@@ -57,4 +57,4 @@ function getFile(localPath, res, mimeType) {
             res.end();
         }
     });
-}
+}*/
