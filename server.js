@@ -212,6 +212,7 @@ var SampleApp = function() {
         
         console.log('Listening at IP ' + ipaddr +' on port '+port);
         
+        server.listen(port,ipaddr);
         
     };
 
@@ -227,5 +228,4 @@ zapp.initialize();
 zapp.start();
 
 
-server.listen(port,ipaddr);
 
