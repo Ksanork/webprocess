@@ -268,37 +268,42 @@ $ git push</pre>
 </section>
 
 <script type="text/javascript">
-		var host=location.origin.replace(/^http/, 'ws')
-var ws = new WebSocket(host);
-ws.onmessage = function (event) {
-        console.log(event.data);
-       var data= event.data;
-       addMessage(data,'server'); 
-};
-ws.onopen= function (event){
-    console.log('client connected' + event);
-
-}
-ws.onclose = function()
-     { 
-        // websocket is closed.
-        console.log("Connection is closed..."); 
-     };
-function addMessage(msg, pseudo) {
-   $("#chatEntries").append('<div class="message"><p>' + pseudo + ' : ' + msg + '</p></div>');
-}
-
-function sentMessage() {
-   if ($('#messageInput').val() != "") 
-   {
-      ws.send($('#messageInput').val());
-      $('#messageInput').val('');
-   }
-}
-
-$(function() {
-   $("#submit").click(function() {sentMessage();});
-});
+		var  wss = new WebSocketServer({port:8000})
+        console.log(wss);
+        wss.on('connection', function(ws) {
+            console.log('/connection connected');
+            ws.on('message', function(data, flags) {
+                if (flags.binary) { return; }
+                console.log('>>> ' + data);
+                ws.send('WAZZZUP! from fucking nowehere');
+            });
+            ws.on('close', function() {
+              console.log('Connection closed!');
+            });
+            ws.on('error', function(e) {
+              console.log(e);
+            });
+        });
+        
+        wss.on('connect', function(ws) {
+            console.log('/connect connected');
+            ws.on('message', function(data, flags) {
+                if (flags.binary) { return; }
+                console.log('>>> ' + data);
+                if (data == 'test') { console.log('test'); ws.send('got test'); }
+                if (data == 'hello') { console.log('hello'); ws.send('WAZZZUP!'); }
+            });
+            ws.on('close', function() {
+              console.log('Connection closed!');
+            });
+            ws.on('error', function(e) {
+              console.log(e);
+            });
+        });
+        
+        console.log('Listening at IP ' + ipaddr +' on port '+port);
+        
+        server.listen(port,ipaddr);
   
 </script>
 </body>
