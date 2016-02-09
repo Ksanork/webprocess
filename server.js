@@ -177,7 +177,7 @@ var SampleApp = function() {
         //server.listen(port)
         
         //app - websocket
-        var  wss = new WebSocketServer({server:server})
+        /*var  wss = new WebSocketServer({server:server})
         console.log(wss);
         wss.on('connection', function(ws) {
             console.log('/connection connected');
@@ -212,7 +212,7 @@ var SampleApp = function() {
         
         console.log('Listening at IP ' + ipaddr +' on port '+port);
         
-        server.listen(port,ipaddr);
+        server.listen(port,ipaddr);*/
         
     };
 
