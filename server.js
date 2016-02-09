@@ -6,7 +6,7 @@ var http = require('http');
 var express = require("express");
 var app     = express();
 
-var server = http.createServer(function(request, response) {
+/*var server = http.createServer(function(request, response) {
     
 });
 
@@ -29,7 +29,7 @@ wss.on('connection', function(ws) {
     ws.send("Received: " + message);
   });
   ws.send('Welcome!');
-});
+});*/
 
 console.log("Listening to " + ipaddress + ":" + port + "...");
 
