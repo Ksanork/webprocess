@@ -45,6 +45,20 @@ http.createServer( function(req, res) {
 
 }).listen(port, ipaddress);
 
+var wss = new WebSocketServer({
+    server: server,
+    autoAcceptConnections: false
+});
+wss.on('connection', function(ws) {
+  console.log("New connection");
+  ws.on('message', function(message) {
+    ws.send("Received: " + message);
+  });
+  ws.send('Welcome!');
+});
+
+console.log("Listening to " + ipaddress + ":" + port + "...");
+
 function getFile(localPath, res, mimeType) {
     fs.readFile(localPath, function(err, contents) {
         if(!err) {
