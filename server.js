@@ -6,8 +6,33 @@ var fs = require("fs");
 var WebSocketServer = require('ws').Server
 var http = require('http');
 
-var connect = require('connect'),
-connect()
-   .use(connect.static('<pathyouwishtoserve>'))
-   .use(connect.directory('<pathyouwishtoserve>'))
-   .listen(8080);
+fs.readFile('./index.html', function (err, html) {
+    if (err) {
+        throw err; 
+    }       
+    var server = http.createServer(function(request, response) {
+        console.log((new Date()) + ' Received request for ' + request.url);
+        response.writeHead(200, {'Content-Type': 'text/html'});
+          response.write(html);
+          response.end("Thanks for visiting us! \n");
+    });
+    
+    server.listen( port, ipaddress, function() {
+        console.log((new Date()) + ' Server is listening on port 8080');
+    });
+    
+    var wss = new WebSocketServer({
+        server: server,
+        autoAcceptConnections: false
+    });
+    wss.on('connection', function(ws) {
+      console.log("New connection");
+      ws.on('message', function(message) {
+        ws.send("Received: " + message);
+      });
+      ws.send('Welcome!');
+    });
+    
+    console.log("Listening to " + ipaddress + ":" + port + "...");
+});
+
