@@ -1,5 +1,5 @@
-var port = 8000;
-var serverUrl = "127.0.0.1";
+var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+var port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 var http = require("http");
 var path = require("path"); 
@@ -43,7 +43,7 @@ http.createServer( function(req, res) {
         console.log("Invalid file extension detected: " + ext)
     }
 
-}).listen(port, serverUrl);
+}).listen(port, ipaddress);
 
 /*function getFile(localPath, res, mimeType) {
     fs.readFile(localPath, function(err, contents) {
