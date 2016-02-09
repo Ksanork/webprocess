@@ -17,12 +17,12 @@ server.listen( port, ipaddress, function() {
 
 
       
-      app.get('/', function(request, response){
+      /*app.get('/', function(request, response){
         console.log((new Date()) + ' Received request for ' + request.url);
         response.sendFile(__dirname + '/index.html');
     });
     
-     app.listen(8080);
+     app.listen(8080);*/
 
 wss = new WebSocketServer({
     server: server,
