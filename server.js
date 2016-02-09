@@ -36,4 +36,4 @@ wss.on('connection', function(ws) {
 
 console.log("Listening to " + ipaddress + ":" + port + "...");
 
-app.listen(80, ipaddress);
+app.listen(8080, ipaddress);
