@@ -5,7 +5,7 @@ var http = require("http");
 var path = require("path"); 
 var fs = require("fs");         
 
-console.log("Starting web server at " + serverUrl + ":" + port);
+//console.log("Starting web server at " + serverUrl + ":" + port);
 
 http.createServer( function(req, res) {
 
