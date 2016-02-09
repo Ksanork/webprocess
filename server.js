@@ -1,5 +1,4 @@
 var server = require('http').createServer()
-  , url = require('url')
   , WebSocketServer = require('ws').Server
   , wss = new WebSocketServer({ server: server })
   , express = require('express')
