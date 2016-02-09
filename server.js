@@ -1,6 +1,10 @@
 //  OpenShift sample Node application
 var express = require('express');
 var fs      = require('fs');
+var http      = require('http');
+
+var ipaddr  = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+var port      = process.env.OPENSHIFT_NODEJS_PORT || 8000;
 
 
 /**
@@ -217,5 +221,5 @@ wss.on('connect', function(ws) {
 });
 
 console.log('Listening at IP ' + ipaddr +' on port '+port);
-//server.listen(port,ipaddr);
+server.listen(port,ipaddr);
 
