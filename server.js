@@ -1,25 +1,22 @@
-var server = require('http').createServer()
-  , WebSocketServer = require('ws').Server
-  , wss = new WebSocketServer({ server: server })
-  , express = require('express')
-  , app = express()
-  , port = 8000;
+var http = require('http');
+var fs = require('fs');
+var path = require('path');
+var ext = /[\w\d_-]+\.[\w\d]+$/;
 
-app.use(function (req, res) {
-  res.send({ msg: "hello" });
-});
-/*
-wss.on('connection', function connection(ws) {
-  var location = url.parse(ws.upgradeReq.url, true);
-  // you might use location.query.access_token to authenticate or share sessions
-  // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
-
-  ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
-  });
-
-  ws.send('something');
-});
-
-server.on('request', app);*/
-server.listen(port, function () { console.log('Listening on ' + server.address().port) });
+http.createServer(function(req, res){
+    if (req.url === '/') {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        fs.createReadStream('index.html').pipe(res);
+    } else if (ext.test(req.url)) {
+        fs.exists(path.join(__dirname, req.url), function (exists) {
+            if (exists) {
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                fs.createReadStream('index.html').pipe(res);
+            } else {
+                res.writeHead(404, {'Content-Type': 'text/html'});
+                fs.createReadStream('404.html').pipe(res);
+        });
+    } else {
+        //  add a RESTful service
+    }
+}).listen(8000);
