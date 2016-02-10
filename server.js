@@ -7,7 +7,7 @@ var path = require("path");
 var fs = require("fs");
 
 var routing = {
-    '/': 'index.html'
+    '/': '/index.html'
 };
 
 //console.log("Starting web server at " + serverUrl + ":" + port);
