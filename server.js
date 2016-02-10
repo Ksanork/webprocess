@@ -19,6 +19,7 @@ var server = http.createServer( function(req, res) {
     var ext = path.extname(filename);
     var localPath = __dirname;
     var validExtensions = {
+        "/" : "text/html",
         ".html" : "text/html",          
         ".js": "application/javascript", 
         ".css": "text/css",
@@ -28,7 +29,7 @@ var server = http.createServer( function(req, res) {
         ".png": "image/png"
     };
     var isValidExt = validExtensions[ext];
-
+    
     if (isValidExt) {
         localPath += routing[filename];
         path.exists(localPath, function(exists) {
