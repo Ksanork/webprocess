@@ -7,7 +7,7 @@ var path = require("path");
 var fs = require("fs");
 
 var routing = {
-    '/': 'index.html'
+    '/': '/index.html'
 };
 
 //console.log("Starting web server at " + serverUrl + ":" + port);
@@ -30,8 +30,12 @@ var server = http.createServer( function(req, res) {
     };
     var isValidExt = validExtensions[ext];
     
+    console.log(localPath);
+    
     if (isValidExt || filename == '/') {
         localPath += routing[filename];
+        console.log(localPath);
+        
         path.exists(localPath, function(exists) {
             if(exists) {
                 console.log("Serving file: " + localPath);
