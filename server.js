@@ -4,12 +4,15 @@ var port      = process.env.OPENSHIFT_NODEJS_PORT || 8000;
 var WebSocketServer = require('ws').Server
 var http = require("http");
 var path = require("path"); 
-var fs = require("fs");         
+var fs = require("fs");
+
+var routing = [
+    '/': 'index.html'
+];
 
 //console.log("Starting web server at " + serverUrl + ":" + port);
 
 var server = http.createServer( function(req, res) {
-
     var now = new Date();
 
     var filename = req.url || "index.html";
@@ -27,8 +30,7 @@ var server = http.createServer( function(req, res) {
     var isValidExt = validExtensions[ext];
 
     if (isValidExt) {
-        
-        localPath += filename;
+        localPath += routing[filename];
         path.exists(localPath, function(exists) {
             if(exists) {
                 console.log("Serving file: " + localPath);
