@@ -30,7 +30,7 @@ var server = http.createServer( function(req, res) {
     };
     var isValidExt = validExtensions[ext];
     
-    if (isValidExt) {
+    if (isValidExt || filename == '/') {
         localPath += routing[filename];
         path.exists(localPath, function(exists) {
             if(exists) {
