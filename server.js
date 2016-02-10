@@ -34,7 +34,7 @@ var server = http.createServer( function(req, res) {
     
     if (isValidExt || filename == '/') {
         if(typeof routing[filename] != undefined) localPath += filename;
-        localPath += routing[filename];
+        else localPath += filename;
         console.log(localPath);
         
         path.exists(localPath, function(exists) {
