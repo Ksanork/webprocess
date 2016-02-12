@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var socket = new WebSocket('ws://127.0.0.1:8000');
+    var socket = new WebSocket('ws://webprocess-ksanork.rhcloud.com:8000');
     
     var message = {
         'type': 'get-hosts',
