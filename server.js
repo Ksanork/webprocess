@@ -1,83 +1,46 @@
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 8000;
 
-var WebSocketServer = require('ws').Server
-var http = require("http");
-var path = require("path"); 
-var fs = require("fs");
+var http = require('./models/http');
+var wsserver = require('./models/server');
 
 var routing = {
-    '/': '/index.html'
+    '/':        '/index.html',
+    'hosts':    '/controllers/HostsController.js',
+    'console':  '/controllers/ConsoleController.js'
 };
 
-//console.log("Starting web server at " + serverUrl + ":" + port);
+http.init(__dirname);           //http do ładowania zasobów webowych
+wsserver.init(http.server);     //websocketserver do komunikacji z hostami
 
-var server = http.createServer( function(req, res) {
-    var now = new Date();
-
-    var filename = req.url || "index.html";
-    var ext = path.extname(filename);
-    var localPath = __dirname;
-    var validExtensions = {
-        "/" : "text/html",
-        ".html" : "text/html",          
-        ".js": "application/javascript", 
-        ".css": "text/css",
-        ".txt": "text/plain",
-        ".jpg": "image/jpeg",
-        ".gif": "image/gif",
-        ".png": "image/png"
-    };
-    var isValidExt = validExtensions[ext];
-    
-    console.log(localPath);
-    
-    if (isValidExt || filename == '/') {
-        localPath += filename;
-        console.log(localPath);
-        
-        path.exists(localPath, function(exists) {
-            if(exists) {
-                console.log("Serving file: " + localPath);
-                getFile(localPath, res, isValidExt);
-            } else {
-                console.log("File not found: " + localPath);
-                res.writeHead(404);
-                res.end();
-            }
-        });
-
-    } else {
-        console.log("Invalid file extension detected: " + ext)
-    }
-
-});
-
-var wss = new WebSocketServer({
-    server: server,
-    autoAcceptConnections: false
-});
-wss.on('connection', function(ws) {
-  console.log("New connection");
-  ws.on('message', function(message) {
-    ws.send("Received: " + message);
-  });
-  ws.send('Welcome!');
-});
+//własna obsługa przychodzących treści
+wsserver.handleIncoming = function(ws, message) {
+  var json = JSON.parse(message);   //zakłada, że dane wysyłane są za pomocą JSON z polami 'type' i 'content'
+  
+  //!dodać stałe
+  switch(json.type) {
+      case "connect":
+        //console.log("clients - " +  this.clients);
+        this.addClient('non-browser');
+        break;
+      case "add":
+        //dodanie klienta do bazy
+        //odpowiedź z _id
+        break;
+      case "process-result":
+        //przetwarzanie odpowiedzi na komendę
+        break;
+      case "refresh-result":
+        //sprawdza czy połączenie aktualne
+        break;
+      case "get-hosts":
+         console.log("get-hosts");
+         this.sendJSON(ws, 'get-hosts-result', this.clients);
+        //zwraca listę połączonych klientów
+        break;
+  }
+};
 
 console.log("Listening to " + ipaddress + ":" + port + "...");
-server.listen(port, ipaddress);
+http.listen(port, ipaddress);
 
-function getFile(localPath, res, mimeType) {
-    fs.readFile(localPath, function(err, contents) {
-        if(!err) {
-            res.setHeader("Content-Length", contents.length);
-            res.setHeader("Content-Type", mimeType);
-            res.statusCode = 200;
-            res.end(contents);
-        } else {
-            res.writeHead(500);
-            res.end();
-        }
-    });
-}
