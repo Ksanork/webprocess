@@ -20,8 +20,7 @@ wsserver.handleIncoming = function(ws, message) {
   //!dodać stałe
   switch(json.type) {
       case "connect":
-        //console.log("clients - " +  this.clients);
-        this.addClient('non-browser');
+        this.addClient(json.content.name, ws);
         break;
       case "add":
         //dodanie klienta do bazy
@@ -33,12 +32,14 @@ wsserver.handleIncoming = function(ws, message) {
       case "refresh-result":
         //sprawdza czy połączenie aktualne
         break;
-      case "get-hosts":
-         console.log("get-hosts");
-         this.sendJSON(ws, 'get-hosts-result', this.clients);
-        //zwraca listę połączonych klientów
+      case "get-hosts":             //zwraca listę połączonych klientów
+         this.sendJSON(ws, 'get-hosts-result', this.getClientsNames());
         break;
   }
+};
+
+wsserver.handleDisconnect = function(ws) {
+    this.removeClient(ws);  
 };
 
 console.log("Listening to " + ipaddress + ":" + port + "...");
