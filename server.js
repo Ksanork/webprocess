@@ -35,15 +35,15 @@ wsserver.handleIncoming = function(ws, message) {
       case "add":               //dodaje hosta do bazy i odsyła _id
         console.log("add host to db...");
         var t = this;
-        db.addHost(json.content.name, function(id) {
+        /*db.addHost(json.content.name, function(id) {
             if(id) {
                 console.log(id);
                 t.sendJSON(ws, "add-result", {"_id" : id});
             }
-        });
+        });*/
         break;
       case "remove":
-        db.removeHost(json.content.id);
+        //db.removeHost(json.content.id);
         break;
       case "process-execute":
         //!dodać sprawdzanie ip!!!
