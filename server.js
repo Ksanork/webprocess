@@ -1,7 +1,7 @@
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 8000;
 
-var iconvlite = require('iconv-lite');
+//var iconvlite = require('iconv-lite');
 var http = require('./models/http');
 var wsserver = require('./models/server');
 var db = require('./models/dbo');
