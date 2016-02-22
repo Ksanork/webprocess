@@ -1,4 +1,4 @@
-/*
+/**
  * server.js
  * własna implementacja modułu WebSocketServer
  * odebrane wiadomości są przetwarzana przez metodę 'handleIncoming', którą należy przykryć
@@ -7,6 +7,7 @@
 var WebSocketServer = require('ws').Server;
 
 var Server = module.exports = {
+    browser: null,              //WebSocket przeglądarki połaczenej z serwerem
     ws: null,                   //moduł WebSocketServer
     clients: new Array(),       //aktaulnie połączeni klienci
     
@@ -30,19 +31,28 @@ var Server = module.exports = {
           
           //zdarzenie reagujące na zamykanie połączenia
           ws.on('close', function(message) {
-             t.handleDisconnect(ws, message);
+             t.handleDisconnect(this, message);
           });
         });
     },
     
     //dodanie klienta do listy - AUTORYZACJA?
-    addClient: function(name, ws) {
+    addClient: function(id, ws) {
         console.log("new client");
         console.log("ilosć klientów " + this.clients.length);
         this.clients.push({
-            'name': name,
+            'id': id,
             'ws': ws
           });  
+    },
+    
+    getClientSocketById: function(id) {
+      for(var i = 0; i < this.clients.length; i++) {
+            if(id == this.clients[i].id) 
+                return this.clients[i].ws;
+        }
+        
+        return null;
     },
     
     //usuwa klienta na podstawie obiektu socketu
@@ -58,22 +68,20 @@ var Server = module.exports = {
     },
     
     //zwraca tylko this.clients bez ws
-    getClientsNames: function() {
+    getClientsID: function() {
         var result = new Array();
         
         for(var i = 0; i < this.clients.length; i++) {
             result.push({
-                'name': this.clients[i].name,
+                'id': this.clients[i].id,
             }); 
         }
             
         return result;  
     },
     
-    //dodać pattern?
+    //dodać pattern? sprawdzenie typu 'content' i automatyczne opakowoywanie go
     sendJSON: function(ws, type, content) {
-        //console.log(this.clients);
-        
         var prepjson = {
             'type': type,
             'content': content

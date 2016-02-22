@@ -3,10 +3,9 @@ body {
 }
 
 section.container {
-    background-image:  url('../img/world.png'), url('../img/bg.png');
-    background-attachment: fixed, fixed;
-    background-size: auto, cover;
-    background-position: center, 0 0;
+    background-image:  url('../img/bg.png');
+    background-attachment: inherit;
+    background-size: cover;
     background-repeat: no-repeat;
     
     z-index: 2;
@@ -21,10 +20,109 @@ header {
 
 section.content {
     margin: 0 auto;
-    width: 80%;
+    width: 1000px;
     margin-top: 20px;
     
+    z-index: 2;
+}
+
+section.console-container {
+    position: absolute;
+    left: 5%;
+    top: 15%;
     
+    width: 90%;
+    height: 80vh;
+    
+    /*opacity: 0.4;*/
+    
+    background-image: url('../img/console-bg.png');
+}
+
+section.console-container > * {
+    z-index: 3;
+}
+
+section.world-bg {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    
+    width: 100%;
+    min-height: 100vh;
+   
+    /*background-attachment: fixed;*/
+    background-size: 1100px;
+    background-position: 50% 60%;
+    background-repeat: no-repeat;
+    
+    /*z-index: 1;*/
+}
+
+section.world-bg1 {
+     background-image: url('../img/world.png');
+}
+
+section.world-bg2 {
+    background-image: url('../img/console-world.png');
+    /*z-index: 1 !important;*/
+}
+
+section.console-inside {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('../img/console-world.png');
+    /*background-attachment: fixed;*/
+    background-size: 1100px;
+    background-position: 50% 30%;
+    background-repeat: no-repeat;
+}
+
+#console-text {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    
+    width: 97%;
+    padding: 8px;
+    padding-left: 30px;
+    border: none;
+    
+    /*background-color: #464646;*/
+    background: rgba(70, 70, 70, 0.5);
+    color: white;
+    font-family: 'Consolas';
+    font-size: 1em;
+}
+
+#output {
+    position: absolute;
+    width: 97%;
+    padding: 30px;
+    
+    color: white;
+    font-size: 1.1em;
+    font-family: 'Consolas';
+    
+    height: 67.5vh;
+    overflow-y: scroll;
+    
+    z-index: 999;
+    
+    /*border: 1px solid red;*/
+    
+}
+
+.console-sign {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 8px;
 }
 
 div.host {

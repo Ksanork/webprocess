@@ -1,4 +1,4 @@
-/*
+/**
  * http.js
  * obsługa zapytań http i ładowanie odpowiednich zasobów
  * 'handleRequest' pobiera rozszerzenie i na jego podstawie podstawia MIME
@@ -60,7 +60,7 @@ var Http = module.exports = {
                  });
             
            } else {
-                 console.log("Invalid file extension detected: " + ext)
+                 console.log("Invalid file extension detected: " + ext);
            }
     },
     
