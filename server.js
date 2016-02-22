@@ -18,7 +18,7 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
 
 http.init(__dirname);           //http do ładowania zasobów webowych
 wsserver.init(http.server);     //websocketserver do komunikacji z hostami
-db.init(url);                   //inicjuje połączenie z bazą danych
+//db.init(url);                   //inicjuje połączenie z bazą danych
 
 //własna obsługa przychodzących treści
 wsserver.handleIncoming = function(ws, message) {
