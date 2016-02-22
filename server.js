@@ -57,12 +57,6 @@ wsserver.handleIncoming = function(ws, message) {
         break;
       case "process-execute-result":
         console.log("odebrano per");
-        
-        
-        //var result = iconvlite.decode(json.content, 'ISO-8859-2');
-        
-        //console.log(result);
-        
         if(this.browser != null)
             this.sendJSON(this.browser, "process-execute-result", json.content);
         break; 
@@ -71,7 +65,7 @@ wsserver.handleIncoming = function(ws, message) {
         break;
       case "get-hosts":             //zwraca listę klientów, podzielonych na połączonych i rozłaczonych
          var t = this;
-         db.getHosts(function(hosts) {
+         /*db.getHosts(function(hosts) {
              var result = new Array();
              var clients = t.getClientsID();
              
@@ -85,7 +79,7 @@ wsserver.handleIncoming = function(ws, message) {
              }
              
              t.sendJSON(ws, 'get-hosts-result', result);
-         });
+         });*/
         break;
   }
 };
