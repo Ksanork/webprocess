@@ -35,15 +35,15 @@ wsserver.handleIncoming = function(ws, message) {
       case "add":               //dodaje hosta do bazy i odsyła _id
         console.log("add host to db...");
         var t = this;
-        /*db.addHost(json.content.name, function(id) {
+        db.addHost(json.content.name, function(id) {
             if(id) {
                 console.log(id);
                 t.sendJSON(ws, "add-result", {"_id" : id});
             }
-        });*/
+        });
         break;
       case "remove":
-        //db.removeHost(json.content.id);
+        db.removeHost(json.content.id);
         break;
       case "process-execute":
         //!dodać sprawdzanie ip!!!
@@ -65,7 +65,7 @@ wsserver.handleIncoming = function(ws, message) {
         break;
       case "get-hosts":             //zwraca listę klientów, podzielonych na połączonych i rozłaczonych
          var t = this;
-         /*db.getHosts(function(hosts) {
+         db.getHosts(function(hosts) {
              var result = new Array();
              var clients = t.getClientsID();
              
@@ -79,7 +79,7 @@ wsserver.handleIncoming = function(ws, message) {
              }
              
              t.sendJSON(ws, 'get-hosts-result', result);
-         });*/
+         });
         break;
   }
 };
