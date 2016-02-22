@@ -1,6 +1,6 @@
 //autoryzacja??? - sprawdzanie ip po stronie serwera, musi byc takie same
 $(document).ready(function() {
-    var socket = new WebSocket('ws://http://webprocess-ksanork.rhcloud.com:8000'),
+    var socket = new WebSocket('ws://webprocess-ksanork.rhcloud.com:8000'),
         gethosts = {
             'type': 'get-hosts',
             'content': null
