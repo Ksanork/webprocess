@@ -70,9 +70,10 @@ wsserver.handleIncoming = function(ws, message) {
              var clients = t.getClientsID();
              
              for(var i = 0; i < hosts.length; i++) {
+                 hosts[i]['connected'] = false;
+                 
                  for(var j = 0; j < clients.length; j++) {
                     if(hosts[i]['_id'] == clients[j]['id']) hosts[i]['connected'] = true;
-                    else hosts[i]['connected'] = false;
                  }
                  
                  result.push(hosts[i]);  
