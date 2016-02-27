@@ -86,6 +86,7 @@ wsserver.handleIncoming = function(ws, message) {
 };
 
 wsserver.handleDisconnect = function(ws) {
+    console.log("disconnect");
     this.removeClient(ws);  
 };
 
