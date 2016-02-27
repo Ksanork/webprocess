@@ -60,7 +60,8 @@ wsserver.handleIncoming = function(ws, message) {
         if(this.browser != null)
             this.sendJSON(this.browser, "process-execute-result", json.content);
         break; 
-      case "refresh-result":
+      case "ping":
+        console.log("ping ping");
         //sprawdza czy połączenie aktualne
         break;
       case "get-hosts":             //zwraca listę klientów, podzielonych na połączonych i rozłaczonych
