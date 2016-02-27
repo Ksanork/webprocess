@@ -56,7 +56,7 @@ wsserver.handleIncoming = function(ws, message) {
             this.sendJSON(clientws, "process-execute", json.content.command); 
         break;
       case "process-execute-result":
-        console.log("odebrano per");
+        console.log("odebrano output");
         if(this.browser != null)
             this.sendJSON(this.browser, "process-execute-result", json.content);
         break; 
