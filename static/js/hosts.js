@@ -1,6 +1,6 @@
 //autoryzacja??? - sprawdzanie ip po stronie serwera, musi byc takie same
 $(document).ready(function() {
-    var socket = new WebSocket('ws://webprocess-ksanork.rhcloud.com:8000'),
+    var socket = new WebSocket('ws://127.0.0.1:8000'),
         gethosts = {
             'type': 'get-hosts',
             'content': null
@@ -8,13 +8,18 @@ $(document).ready(function() {
     
     $(".console-container").hide();
     $(".world-bg2").hide();
+    $(".panel-container").hide();
+    
     
     socket.onopen = function() {
+        console.log("open");
         this.send(JSON.stringify(gethosts));
         
         socket.onmessage = function(msg) {
-            var json = JSON.parse(msg.data), t = this;
             
+            
+            var json = JSON.parse(msg.data), t = this;
+            console.log(json.content);
             switch(json.type) {
                 case "get-hosts-result":
                     for(var i = 0; i < json.content.length; i++) {
@@ -31,7 +36,9 @@ $(document).ready(function() {
                         $('#hosts').append(div);
                     }
                     
-                    $(".host:not(.disabled)").click(function() {
+                    initOpenEvents(socket, null);
+                    
+                    /*$(".host:not(.disabled)").click(function() {
                       //$(".host").click(function() {
                               $(".console-container").fadeIn();
                               $(".world-bg2").fadeIn(1000);
@@ -60,7 +67,7 @@ $(document).ready(function() {
                               });
                               
                              
-                    });
+                    });*/
                     break;
                 case "process-execute-result":
                     //var result = repairTabs(json.content);
@@ -77,6 +84,10 @@ $(document).ready(function() {
                     //$("#output").animate({ scrollTop:  $("#output").scrollTop() }, "slow");
                     
                     console.log("odebrano process-execute-result");
+                    console.log(json.content);
+                break;
+                case "screenshot-show":
+                    $("#panel-wrapper").append('<img class="screenshot" src="screen.png" />');
                 break;
             }
         };
