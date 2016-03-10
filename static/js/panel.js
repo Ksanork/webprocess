@@ -5,6 +5,9 @@ function initOpenEvents(socket, elem) {
         $("#hosts").fadeOut(1000);
         //$(".world-bg").fadeOut(1000);
         $(".panel-container").fadeIn(300);
+        
+        $("#panel-date").html(
+            'Uruchomiony: <span class="panel-date-red">' + $(this).attr("date") + '</span>');
 
         var t = this;
         $("#console-module").click(function() {

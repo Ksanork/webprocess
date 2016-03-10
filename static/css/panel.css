@@ -52,3 +52,38 @@ img.screenshot {
     
     width: 140%;
 }
+
+div.panel-info {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    font-family: 'Candara';
+    font-size: 1.2em;
+}
+
+span#panel-name {
+    display: block;
+    
+    position: absolute;
+    top: 20%;
+    left: 110%;
+    
+    font-size: 1.3em;
+    font-weight: bold;
+    
+    width: 250%;
+}
+
+span#panel-date {
+    display: block;
+    
+    position: absolute;
+    top: 50%;
+    left: 110%;
+    
+    width: 250%;
+}
+
+span.panel-date-red {
+    color: #a10000;
+}

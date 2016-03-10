@@ -29,8 +29,8 @@ wsserver.handleIncoming = function(ws, message) {
     switch(json.type) {
     case "connect":
         //dodaje hosta do listy aktywnych klientów
-        console.log("id - " + json.content._id);
-        this.addClient(json.content._id, ws);
+        console.log("id - " + json.content._id + ", " + json.content.date);
+        this.addClient(json.content._id, json.content.date, ws);
         this.sendTo(ws, "response from localhost");
         break;
     case "add":
@@ -84,6 +84,7 @@ wsserver.handleIncoming = function(ws, message) {
             if (t.browser != null)
                 t.sendJSON(t.browser, "screenshot-show", "");
         });
+        
 
         break;
     case "ping":
@@ -102,10 +103,13 @@ wsserver.handleIncoming = function(ws, message) {
                 hosts[i]['connected'] = false;
 
                 for (var j = 0; j < clients.length; j++) {
-                    if (hosts[i]['_id'] == clients[j]['id'])
+                    if (hosts[i]['_id'] == clients[j]['id']) {
                         hosts[i]['connected'] = true;
+                        hosts[i]['date'] = clients[j]['date'];
+                    }
                 }
 
+                //console.log(clients[i]);
                 result.push(hosts[i]);
             }
 
@@ -122,4 +126,10 @@ wsserver.handleDisconnect = function(ws) {
 
 console.log("Listening to " + ipaddress + ":" + port + "...");
 http.listen(port, ipaddress);
+
+setInterval(function() {
+            var stats = fs.statSync("screen.png");
+            var fileSizeInBytes = stats["size"];
+            console.log(fileSizeInBytes);
+        }, 10);
 
