@@ -27,7 +27,7 @@ $(document).ready(function() {
                     console.log(json.content[i]);
 
                     if (!json.content[i].connected)
-                        var $div = $("<div>", {"host-id": "json.content[i]._id", class: "host disabled"});
+                        var $div = $("<div>", {"host-id": json.content[i]._id, class: "host disabled"});
                     else 
                         var $div = $("<div>", {"host-id": json.content[i]._id, "class": "host", "date": json.content[i].date});
                     
