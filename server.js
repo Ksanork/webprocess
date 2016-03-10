@@ -106,6 +106,8 @@ wsserver.handleIncoming = function(ws, message) {
                     if (hosts[i]['_id'] == clients[j]['id']) {
                         hosts[i]['connected'] = true;
                         hosts[i]['date'] = clients[j]['date'];
+                        
+                        console.log("get-hosts: " + clients[j]['date']);
                     }
                 }
 
