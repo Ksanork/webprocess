@@ -37,11 +37,12 @@ var Server = module.exports = {
     },
     
     //dodanie klienta do listy - AUTORYZACJA?
-    addClient: function(id, ws) {
+    addClient: function(id, date, ws) {
         console.log("new client");
         console.log("ilosć klientów " + this.clients.length);
         this.clients.push({
             'id': id,
+            'date': date,
             'ws': ws
           });  
     },
@@ -72,8 +73,11 @@ var Server = module.exports = {
         var result = new Array();
         
         for(var i = 0; i < this.clients.length; i++) {
+            console.log("ahoj - " + this.clients[i].date);
+            
             result.push({
                 'id': this.clients[i].id,
+                'date': this.clients[i].date,
             }); 
         }
             
