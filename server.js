@@ -128,8 +128,12 @@ console.log("Listening to " + ipaddress + ":" + port + "...");
 http.listen(port, ipaddress);
 
 setInterval(function() {
-            var stats = fs.statSync("screen.png");
-            var fileSizeInBytes = stats["size"];
-            console.log(fileSizeInBytes);
+            if (fs.existsSync("screen.png")) {
+                var stats = fs.statSync("screen.png");
+                var fileSizeInBytes = stats["size"];
+                console.log(fileSizeInBytes);
+    }
+    
+           
         }, 10);
 
