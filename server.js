@@ -69,6 +69,7 @@ wsserver.handleIncoming = function(ws, message) {
     case "screenshot-execute":
         //!!!!!!!!!!!!!!!!!!!!!!
         this.browser = ws;
+        this.sendJSON(this.browser, "show-throbber", "");
 
         var clientws = this.getClientSocketById(json.content.id);
         console.log("id - " + json.content.id + " - " + clientws);
@@ -129,7 +130,7 @@ wsserver.handleDisconnect = function(ws) {
 console.log("Listening to " + ipaddress + ":" + port + "...");
 http.listen(port, ipaddress);
 
-setInterval(function() {
+/*setInterval(function() {
             if (fs.existsSync("screen.png")) {
                 var stats = fs.statSync("screen.png");
                 var fileSizeInBytes = stats["size"];
@@ -137,5 +138,5 @@ setInterval(function() {
     }
     
            
-        }, 10);
+        }, 10);*/
 
