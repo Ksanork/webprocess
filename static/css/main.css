@@ -1,5 +1,7 @@
 body {
     margin: 0;
+    
+   
 }
 
 section.container {
@@ -184,3 +186,68 @@ footer span {
     margin-right: 70px;
     color: white;
 }
+
+
+#throbber {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    
+    -webkit-perspective: 300px;
+    -moz-perspective: 300px;
+    -ms-perspective: 300px;
+    -o-perspective: 300px;
+    perspective: 300px;
+}
+
+@keyframes throbber-rotate {
+    from {transform: rotateX(0deg)}
+    to {transform: rotateX(360deg)}
+}
+
+@keyframes throbber-blink{
+    from {transform: scale(1.0)}
+    to {transform: scale(0.0)}
+}
+
+
+#throbber img.th-1 {
+     animation: throbber-rotate 2s infinite;
+     
+}
+
+#throbber img.th-2 {
+     animation-name: throbber-blink;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    
+     /*animation: throbber-blink 5s infinite;*/
+     /*animation-direction: reverse;*/
+}
+
+@media (max-width: 900px) {
+    section.world-bg {
+        background-size: contain;
+    }
+}
+
+
+@media (max-width: 600px) {
+  header img {
+      width: 100%;
+  }
+  
+  #output {
+      font-size: 0.7em;
+  }
+  
+  div.host {
+      display: block;
+      width: 40%;
+      transform: scale(0.9);
+      
+      margin-bottom: 30px;
+  }
+}
+

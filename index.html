@@ -11,7 +11,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="Mikołaj">
 
-		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		<!-- <meta name="viewport" content="width=device-width; initial-scale=1.0"> -->
 
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 		<link rel="shortcut icon" href="/favicon.ico">
@@ -50,6 +50,7 @@
 		<section class="panel-container">
 			<div id="panel-wrapper" class="wrapper">
 				<div id="panel-bg"></div>
+				<img id="panelback" class="backable" src="static/img/back.png" />
 				<div class="panel-info">
 					<img src="static/img/host.png" />
 					<span id="panel-name">KSANORK-MACHINE</span>
@@ -65,7 +66,9 @@
 						<span class="module-title">Konsola</span>
 					</div>
 				</div>
-				<!-- <img class="screenshot" src="screen.png" /> -->
+				<div id="screenshot-container">
+					<img class="module-back backable" src="static/img/back.png" />
+				</div>
 			</div>
 		</section>
 
@@ -73,19 +76,23 @@
 			<div id="output"></div>
 			<input id="console-text" type="text" />
 			<img class="console-sign" src="static/img/sign.png" />
+			<img class="module-back backable" src="static/img/back.png" />
 			
 		</section>
 		
-		<section class="screenshot-container">
-			
-		</section>
+		<section class="screenshot-container"></section>
 		<section class="world-bg world-bg2"></section>
+		<section id="throbber">
+			<img class="th-1" src="static/img/throbber-1.png" />
+			<img class="th-2" src="static/img/throbber-2.png" />
+		</section>
 
 		<footer>
 			<span>WebProcess | MJ 2016</span>
 		</footer>
 
-		<script type="text/javascript" src="static/js/panel.js"></script>
+		<script type="text/javascript" src="static/js/init.js"></script>
+		<script type="text/javascript" src="static/js/panel.js"></script>	<!-- Ładować asynchronicznie -->
 		<script type="text/javascript" src="static/js/hosts.js"></script>
 	</body>
 </html>

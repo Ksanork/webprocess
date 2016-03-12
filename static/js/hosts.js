@@ -1,110 +1,87 @@
 //autoryzacja??? - sprawdzanie ip po stronie serwera, musi byc takie same
+var socket = null;
+
 $(document).ready(function() {
-    var socket = new WebSocket('ws://webprocess-ksanork.rhcloud.com:8000'), gethosts = {
+    socket = new WebSocket('ws:/webprocess-ksanork.rhcloud.com:8000');
+    socket.onopen = function() {
+        console.log("open");
+        getHosts();
+
+        socket.onmessage = function(msg) {
+            $("#throbber").hide();
+            var json = JSON.parse(msg.data), t = this;
+            console.log(json.content);
+
+            switch(json.type) {
+                case "get-hosts-result":
+                    showHosts(json.content);
+                    break;
+                case "process-execute-result":
+                    addToConsole(json.content);
+                    break;
+                case "show-throbber":
+                    $("#throbber").show();
+                    break;
+                case "screenshot-show":
+                    $("#throbber").hide();
+                    showScreenshot();
+                    break;
+                }
+            };
+    };
+});
+
+function getHosts() {
+    var gethosts = {
         'type' : 'get-hosts',
         'content' : null
     };
 
-    $(".console-container").hide();
-    $(".world-bg2").hide();
-    $(".panel-container").hide();
+    socket.send(JSON.stringify(gethosts));
+    $("#throbber").show();
+}
 
-    socket.onopen = function() {
-        console.log("open");
-        this.send(JSON.stringify(gethosts));
+function showHosts(content) {
+    for (var i = 0; i < content.length; i++) {
+        var enabledclass = 'disabled';
 
-        socket.onmessage = function(msg) {
+        console.log(content[i]);
 
-            var json = JSON.parse(msg.data), t = this;
-            console.log(json.content);
-            switch(json.type) {
-            case "get-hosts-result":
-                for (var i = 0; i < json.content.length; i++) {
-                    var enabledclass = '';
-                    
-                        enabledclass = 'disabled';
+        if (!content[i].connected)
+            var $div = $("<div>", {
+                "host-id" : content[i]._id,
+                "class" : "host disabled"
+            });
+        else
+            var $div = $("<div>", {
+                "host-id" : content[i]._id,
+                "class" : "host",
+                "date" : content[i].date
+            });
 
-                    console.log(json.content[i]);
+        $div.html("<img src=\"static/img/host.png\" />" + "<span class=\"name\">" + content[i].name + "</span>");
 
-                    if (!json.content[i].connected)
-                        var $div = $("<div>", {"host-id": json.content[i]._id, class: "host disabled"});
-                    else 
-                        var $div = $("<div>", {"host-id": json.content[i]._id, "class": "host", "date": json.content[i].date});
-                    
-                    //var div = "<div host-id=\"" + json.content[i]._id + "\" class=\"host " + enabledclass + "\">" + "<img src=\"static/img/host.png\" />" + "<span class=\"name\">" + json.content[i].name + "</span>" + "</div>";
-                    
-                    $div.html("<img src=\"static/img/host.png\" />" + "<span class=\"name\">" + json.content[i].name + "</span>");
-                   
+        $('#hosts').append($div);
+    }
 
-                    /*if (json.content[i].connected) {
-                        console.log("ahoooj");
-                        $(div).date = json.content[i].date;
-                        console.log(json.content[i].date + " = " + $(div).date);
-                    }*/
-                        
-                         
+    initOpenEvents(socket, null);
+}
 
-                    $('#hosts').append($div);
-                }
+function addToConsole(content) {
+    var html = $("#output").html();
+    html += repairTabs(nl2br(htmlEntities(content)));
+    html += "<br />";
 
-                initOpenEvents(socket, null);
+    $("#output").html(html);
+    $("#console-text").val("");
 
-                /*$(".host:not(.disabled)").click(function() {
-                 //$(".host").click(function() {
-                 $(".console-container").fadeIn();
-                 $(".world-bg2").fadeIn(1000);
-                 $("#hosts").fadeOut(1000);
-                 $("#console-text").focus();
+    $("#output").animate({
+        scrollTop : $("#output").prop("scrollHeight")
+    }, 1000);
 
-                 var host = $(this);
-
-                 $("#console-text").keypress(function(e) {
-                 if(e.which == 13) {
-                 //console.log(host.attr("host-id"));
-                 //console.log($(this).val());
-
-                 var html = $("#output").html();
-                 html += "> " + $(this).val() + "<br /><br />";
-                 $("#output").html(html);
-
-                 t.send(JSON.stringify({
-                 "type": "process-execute",
-                 "content": {
-                 "id": host.attr("host-id"),
-                 "command": $(this).val()
-                 }
-                 }));
-                 }
-                 });
-
-                 });*/
-                break;
-            case "process-execute-result":
-                //var result = repairTabs(json.content);
-
-                //$("#output").html(repairTabs(nl2br(htmlEntities(json.content))));
-                var html = $("#output").html();
-                html += repairTabs(nl2br(htmlEntities(json.content)));
-                html += "<br />";
-
-                $("#output").html(html);
-                $("#console-text").val("");
-
-                $("#output").animate({
-                    scrollTop : $("#output").prop("scrollHeight")
-                }, 1000);
-                //$("#output").animate({ scrollTop:  $("#output").scrollTop() }, "slow");
-
-                console.log("odebrano process-execute-result");
-                console.log(json.content);
-                break;
-            case "screenshot-show":
-                $("#panel-wrapper").append('<img class="screenshot" src="screen.png" />');
-                break;
-            }
-        };
-    };
-});
+    console.log("odebrano process-execute-result");
+    console.log(json.content);
+}
 
 function repairTabs(str) {
     return (str + '').replace(/\s /g, '&nbsp;');

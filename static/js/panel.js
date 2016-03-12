@@ -1,28 +1,37 @@
+var $activemodul = null;
+
 function initOpenEvents(socket, elem) {
     $(".host:not(.disabled)").click(function() {
-        //$(".host").click(function() {
         console.log("click");
         $("#hosts").fadeOut(1000);
-        //$(".world-bg").fadeOut(1000);
         $(".panel-container").fadeIn(300);
-        
-        $("#panel-date").html(
-            'Uruchomiony: <span class="panel-date-red">' + $(this).attr("date") + '</span>');
+
+        $("#panel-date").html('Uruchomiony: <span class="panel-date-red">' + $(this).attr("date") + '</span>');
 
         var t = this;
         $("#console-module").click(function() {
-            //$(".host").click(function() {
             openConsole(socket, t);
         });
-        
+
         $("#screenshot-module").click(function() {
-            //$(".host").click(function() {
             getScreenshot(socket, t);
+        });
+
+        $("#panelback").click(function() {
+            $(".panel-container").fadeOut(500);
+            $("#hosts").fadeIn(500);
+        });
+
+        $(".module-back").click(function() {
+            $activemodule.fadeOut(500);
+            $(".panel-container").fadeIn(500);
         });
     });
 }
 
 function openConsole(socket, elem) {
+    $activemodule = $(".console-container");
+
     $(".console-container").fadeIn();
     $(".panel-container").fadeOut();
     $(".world-bg2").fadeIn(1000);
@@ -33,9 +42,6 @@ function openConsole(socket, elem) {
 
     $("#console-text").keypress(function(e) {
         if (e.which == 13) {
-            //console.log(host.attr("host-id"));
-            //console.log($(this).val());
-
             var html = $("#output").html();
             html += "> " + $(elem).val() + "<br /><br />";
             $("#output").html(html);
@@ -53,9 +59,16 @@ function openConsole(socket, elem) {
 
 function getScreenshot(socket, elem) {
     socket.send(JSON.stringify({
-                "type" : "screenshot-execute",
-                "content" : {
-                    "id" : $(elem).attr("host-id")
-                }
-            }));
+        "type" : "screenshot-execute",
+        "content" : {
+            "id" : $(elem).attr("host-id")
+        }
+    }));
+}
+
+function showScreenshot() {
+    $("#screenshot-container").show();
+    $activemodule = $("#screenshot-container");
+
+    $("#screenshot-container").append('<img class="screenshot" src="screen.png" />');
 }

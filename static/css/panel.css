@@ -32,12 +32,26 @@ div.modules {
     position: absolute;
     left: 10%;
     top: 50%;
+    
+     -webkit-perspective: 300px;
+    -moz-perspective: 300px;
+    -ms-perspective: 300px;
+    -o-perspective: 300px;
+    perspective: -300px;
 }
 
 div.module {
     cursor: pointer;
     vertical-align: middle;
     margin-bottom: 15px;
+    transform: rotateY(0deg);
+    
+    transition: padding-left 300ms, transform 300ms;
+}
+
+div.module:hover {
+    padding-left: 30px;
+    transform: rotateY(20deg);
 }
 
 img.module-icon {
@@ -86,4 +100,78 @@ span#panel-date {
 
 span.panel-date-red {
     color: #a10000;
+}
+
+
+#panelback {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}
+
+.backable {
+    cursor: pointer;
+    transform: rotateX(0deg) scale(1.0);
+    transition: transform 300ms;
+}
+
+.backable:hover {
+    transform: rotateX(40deg) scale(1.5);
+}
+
+img.screenshot {
+     display: block;
+    
+    z-index: 1;
+}
+
+div#screenshot-container img.module-back {
+    display: block;
+    
+    position: absolute;
+    top: -10%;
+    right: -20%;
+    
+    z-index: 3;
+}
+
+section.console-container img.module-back {
+    position: absolute;
+    top: -10%;
+    right: 0%;
+    
+    z-index: 3;
+}
+
+@media (max-width: 850px) {
+    section.panel-container {
+        width: 90%;
+    }
+    
+    img#panelback {
+        /*position: absolute;*/
+        top: auto;
+        bottom: 5%;
+    }
+    
+    div.panel-info {
+        left: 5%;
+    }
+    
+    div.panel-info img {
+        width: 40%;
+        
+    }
+    
+    span#panel-name {
+        left: 50%;
+        top: 20%;
+        
+        font-size: 1em;
+    }
+    
+    span#panel-date {
+        top: 110%;
+        left: 10%;
+    }
 }
