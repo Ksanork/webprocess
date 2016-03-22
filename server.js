@@ -13,7 +13,7 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 }
 
 http.init(__dirname);
-//http do ładowania zasobów webowych
+//http do ładowania zasobów webowych !!!!!!!!!!!!!!!1test
 wsserver.init(http.server);
 //websocketserver do komunikacji z hostami
 db.init(url);
