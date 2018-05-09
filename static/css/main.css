@@ -1,0 +1,253 @@
+body {
+    margin: 0;
+    
+   
+}
+
+section.container {
+    background-image:  url('../img/bg.png');
+    background-attachment: inherit;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+    z-index: 2;
+    margin-bottom: 100px;
+    min-height: 100vh;
+}
+
+header {
+    padding: 20px;
+    padding-left: 60px;
+}
+
+section.content {
+    margin: 0 auto;
+    width: 1000px;
+    margin-top: 20px;
+    
+    z-index: 2;
+}
+
+section.console-container {
+    position: absolute;
+    left: 5%;
+    top: 15%;
+    
+    width: 90%;
+    height: 80vh;
+    
+    /*opacity: 0.4;*/
+    
+    background-image: url('../img/console-bg.png');
+}
+
+section.console-container > * {
+    z-index: 3;
+}
+
+section.world-bg {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    
+    width: 100%;
+    min-height: 100vh;
+   
+    /*background-attachment: fixed;*/
+    background-size: 1100px;
+    background-position: 50% 60%;
+    background-repeat: no-repeat;
+    
+    /*z-index: 1;*/
+}
+
+section.world-bg1 {
+     background-image: url('../img/world.png');
+}
+
+section.world-bg2 {
+    background-image: url('../img/console-world.png');
+    /*z-index: 1 !important;*/
+}
+
+section.console-inside {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('../img/console-world.png');
+    /*background-attachment: fixed;*/
+    background-size: 1100px;
+    background-position: 50% 30%;
+    background-repeat: no-repeat;
+}
+
+#console-text {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    
+    width: 97%;
+    padding: 8px;
+    padding-left: 30px;
+    border: none;
+    
+    /*background-color: #464646;*/
+    background: rgba(70, 70, 70, 0.5);
+    color: white;
+    font-family: 'Consolas';
+    font-size: 1em;
+}
+
+#output {
+    position: absolute;
+    width: 97%;
+    padding: 30px;
+    
+    color: white;
+    font-size: 1.1em;
+    font-family: 'Consolas';
+    
+    height: 67.5vh;
+    overflow-y: scroll;
+    
+    z-index: 999;
+    
+    /*border: 1px solid red;*/
+    
+}
+
+.console-sign {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 8px;
+}
+
+div.host {
+    display: inline-block;
+    width: 230px;
+    text-align: center;
+    
+    transform: scale(1.0);
+    transition: transform 300ms;
+}
+
+div.host:not(.disabled) {
+    cursor: pointer;
+}
+
+div.host span {
+    font-family: 'Candara';
+    /*font-weight: bold;*/
+    font-size: 1.4em;
+}
+
+div.host img {
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+div.disabled {
+    opacity: 0.3;
+}
+
+div.host:hover:not(.disabled) {
+    transform: scale(1.1);
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 2em;
+    /*padding: 20px;*/
+    font-family: 'Candara';
+    text-align: right;
+    vertical-align: bottom;
+    
+    padding-top: 40px;
+    /*padding-right: 40px;*/
+    height: 60px;
+    
+    background-image: url('../img/footer-bg.jpg');
+    background-size: contain;
+    background-attachment: fixed;
+    
+    z-index: -1;
+}
+
+footer span {
+    margin-right: 70px;
+    color: white;
+}
+
+
+#throbber {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    
+    -webkit-perspective: 300px;
+    -moz-perspective: 300px;
+    -ms-perspective: 300px;
+    -o-perspective: 300px;
+    perspective: 300px;
+}
+
+@keyframes throbber-rotate {
+    from {transform: rotateX(0deg)}
+    to {transform: rotateX(360deg)}
+}
+
+@keyframes throbber-blink{
+    from {transform: scale(1.0)}
+    to {transform: scale(0.0)}
+}
+
+
+#throbber img.th-1 {
+     animation: throbber-rotate 2s infinite;
+     
+}
+
+#throbber img.th-2 {
+     animation-name: throbber-blink;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    
+     /*animation: throbber-blink 5s infinite;*/
+     /*animation-direction: reverse;*/
+}
+
+@media (max-width: 900px) {
+    section.world-bg {
+        background-size: contain;
+    }
+}
+
+
+@media (max-width: 600px) {
+  header img {
+      width: 100%;
+  }
+  
+  #output {
+      font-size: 0.7em;
+  }
+  
+  div.host {
+      display: block;
+      width: 40%;
+      transform: scale(0.9);
+      
+      margin-bottom: 30px;
+  }
+}
+

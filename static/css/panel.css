@@ -1,0 +1,177 @@
+section.panel-container {
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    
+    width: 50%;
+    height: 60%;
+}
+
+div#panel-bg {
+    position: absolute;
+    
+    background-image: url('../img/panel-bg.png');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+div.wrapper {
+    position: relative;
+    left: -50%;
+    
+    height: 100%;
+}
+
+span.module-title {
+    font-family: 'Candara';
+    vertical-align: middle;
+}
+
+div.modules {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    
+     -webkit-perspective: 300px;
+    -moz-perspective: 300px;
+    -ms-perspective: 300px;
+    -o-perspective: 300px;
+    perspective: -300px;
+}
+
+div.module {
+    cursor: pointer;
+    vertical-align: middle;
+    margin-bottom: 15px;
+    transform: rotateY(0deg);
+    
+    transition: padding-left 300ms, transform 300ms;
+}
+
+div.module:hover {
+    padding-left: 30px;
+    transform: rotateY(20deg);
+}
+
+img.module-icon {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+img.screenshot {
+    position: absolute;
+    left: -15%;
+    top: -15%;
+    
+    width: 140%;
+}
+
+div.panel-info {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    font-family: 'Candara';
+    font-size: 1.2em;
+}
+
+span#panel-name {
+    display: block;
+    
+    position: absolute;
+    top: 20%;
+    left: 110%;
+    
+    font-size: 1.3em;
+    font-weight: bold;
+    
+    width: 250%;
+}
+
+span#panel-date {
+    display: block;
+    
+    position: absolute;
+    top: 50%;
+    left: 110%;
+    
+    width: 250%;
+}
+
+span.panel-date-red {
+    color: #a10000;
+}
+
+
+#panelback {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}
+
+.backable {
+    cursor: pointer;
+    transform: rotateX(0deg) scale(1.0);
+    transition: transform 300ms;
+}
+
+.backable:hover {
+    transform: rotateX(40deg) scale(1.5);
+}
+
+img.screenshot {
+     display: block;
+    
+    z-index: 1;
+}
+
+div#screenshot-container img.module-back {
+    display: block;
+    
+    position: absolute;
+    top: -10%;
+    right: -20%;
+    
+    z-index: 3;
+}
+
+section.console-container img.module-back {
+    position: absolute;
+    top: -10%;
+    right: 0%;
+    
+    z-index: 3;
+}
+
+@media (max-width: 850px) {
+    section.panel-container {
+        width: 90%;
+    }
+    
+    img#panelback {
+        /*position: absolute;*/
+        top: auto;
+        bottom: 5%;
+    }
+    
+    div.panel-info {
+        left: 5%;
+    }
+    
+    div.panel-info img {
+        width: 40%;
+        
+    }
+    
+    span#panel-name {
+        left: 50%;
+        top: 20%;
+        
+        font-size: 1em;
+    }
+    
+    span#panel-date {
+        top: 110%;
+        left: 10%;
+    }
+}
